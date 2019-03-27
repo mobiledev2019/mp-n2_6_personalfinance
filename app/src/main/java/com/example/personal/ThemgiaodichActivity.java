@@ -62,9 +62,32 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
         mMonth=c.get(Calendar.MONTH);
         mDay=c.get(Calendar.DATE);
 
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         ngaythang.setText( sdf.format(c.getTime()));
+
+        final List<String> taikhoan=new ArrayList<String>();
+        taikhoan.add("Tiền Mặt");
+        taikhoan.add("Tiết Kiệm");
+        taikhoan.add("Tín Dụng");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, taikhoan);
+        sptk.setAdapter(adapter);
+        sploaigd=(Spinner)findViewById(R.id.spinloaigd);
+        final List<String> loaigd=new ArrayList<String>();
+        loaigd.add("Khoản Thu");
+        loaigd.add("Khoản Chi");
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, loaigd);
+        sploaigd.setAdapter(adapter1);
+        spinphannhom=(Spinner)findViewById(R.id.spinphannhom);
+        sploaigd.setOnItemSelectedListener(this);
+        spintrangthai = (Spinner)findViewById(R.id.spintrangthai);
+        final List<String> trangthai=new ArrayList<String>();
+        trangthai.add("Hoàn tất");
+        trangthai.add("Chưa hoàn tất");
+        ArrayAdapter<String> adap = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, trangthai);
+        spintrangthai.setAdapter(adap);
 
         imageView.setOnClickListener(new OnClickListener() {
             @Override
@@ -98,7 +121,7 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
                     try {
                         if (sploaigd.getSelectedItem().equals("Khoản Chi")) {
 
-                            db.themgiaodich(sptk.getSelectedItem().toString(), sploaigd.getSelectedItem().toString(), "-" + sotien.getText().toString(), lydo.getText().toString(), spinphannhom.getSelectedItem().toString(), ngaythang.getText().toString(), ngay + "", "" + thang, mYear + "");
+                            db.themgiaodich(sptk.getSelectedItem().toString(), sploaigd.getSelectedItem().toString(), "-" + sotien.getText().toString(), lydo.getText().toString(),  ngaythang.getText().toString(), ngay + "", "" + thang, mYear + "");
                             db.close();
                             LayoutInflater inflater = getLayoutInflater();
                             View mToastView = inflater.inflate(R.layout.luuthanhcong,
@@ -110,7 +133,7 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
                             startActivity(i);
                             finish();
                         }else{
-                            db.themgiaodich(sptk.getSelectedItem().toString(), sploaigd.getSelectedItem().toString(), sotien.getText().toString(), lydo.getText().toString(), spinphannhom.getSelectedItem().toString(), ngaythang.getText().toString(), ngay + "", "" + thang, mYear + "");
+                            db.themgiaodich(sptk.getSelectedItem().toString(), sploaigd.getSelectedItem().toString(), sotien.getText().toString(), lydo.getText().toString(), ngaythang.getText().toString(), ngay + "", "" + thang, mYear + "");
                             db.close();
                             LayoutInflater inflater = getLayoutInflater();
                             View mToastView = inflater.inflate(R.layout.luuthanhcong,
@@ -132,39 +155,6 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
 
             }
         });
-        final List<String> taikhoan=new ArrayList<String>();
-        taikhoan.add("Tiền Mặt");
-        taikhoan.add("Tiết Kiệm");
-        taikhoan.add("Tín Dụng");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, taikhoan);
-        sptk.setAdapter(adapter);
-
-        sploaigd=(Spinner)findViewById(R.id.spinloaigd);
-        final List<String> loaigd=new ArrayList<String>();
-
-        loaigd.add("Khoản Thu");
-
-        loaigd.add("Khoản Chi");
-
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, loaigd);
-        sploaigd.setAdapter(adapter1);
-
-        spinphannhom=(Spinner)findViewById(R.id.spinphannhom);
-
-        sploaigd.setOnItemSelectedListener(this);
-        spintrangthai = (Spinner)findViewById(R.id.spintrangthai);
-        final List<String> trangthai=new ArrayList<String>();
-
-        trangthai.add("Hoàn tất");
-
-        trangthai.add("Chưa hoàn tất");
-
-        ArrayAdapter<String> adap = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, trangthai);
-        spintrangthai.setAdapter(adap);
 
     }
 

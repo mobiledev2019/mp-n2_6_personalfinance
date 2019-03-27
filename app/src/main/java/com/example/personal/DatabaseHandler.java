@@ -81,14 +81,14 @@ public class DatabaseHandler {
     }
 
     public long themgiaodich(String taikhoan, String loaigiaodich,
-                             String sotien, String lydo, String phannhom, String ngaygiaodich,
+                             String sotien, String lydo, String ngaygiaodich,
                              String ngay, String thang, String nam) {
         ContentValues cv1 = new ContentValues();
         cv1.put(COLUM_TAIKHOAN, taikhoan);
         cv1.put(COLUM_LOAIGIAODICH, loaigiaodich);
         cv1.put(COLUM_SOTIEN, sotien);
         cv1.put(COLUM_LYDO, lydo);
-        cv1.put(COLUM_PHANNHOM, phannhom);
+        cv1.put(COLUM_PHANNHOM, "tt");
         cv1.put(COLUM_NGAYGIAODICH, ngaygiaodich);
         cv1.put(COLUM_NGAY, ngay);
         cv1.put(COLUM_THANG, thang);
@@ -97,8 +97,6 @@ public class DatabaseHandler {
         return db.insert(TABLE_NAME, null, cv1);
 
     }
-
-
 
 
     static class OpenHelper extends SQLiteOpenHelper {
