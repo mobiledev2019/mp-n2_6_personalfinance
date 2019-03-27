@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Personal</string>
+    <string name="title_activity_thong_ke">ThongKeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_thong_ke_toan_bo">ThongKeToanBoActivity</string>
+    <string name="money_manager">Personal</string>
+    <string name="nh_p_m_pin">Nhập mã PIN</string>
+    <string name="ng_nh_p">Đăng nhập</string>
+    <string name="thay_pin">Thay PIN</string>
+    <string name="pin_m_c_nh_l_1234">*PIN mặc định là: 1234</string>
+</resources>
