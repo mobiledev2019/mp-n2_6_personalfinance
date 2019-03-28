@@ -12,16 +12,6 @@
     android:background="#EDEDDF"
     tools:context="com.example.personal.LoginActivity">
 
-    <TextView
-        android:text="@string/money_manager"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
-
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -32,49 +22,81 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="TODO" />
 
+    <TextView
+        android:text="@string/money_manager"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+
+    <!--username-->
     <EditText
-        android:id="@+id/etLogin"
+        android:id="@+id/etUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginStart="-41dp"
-        android:layout_marginTop="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="60dp"
         android:ems="10"
-        android:hint="@string/nh_p_m_pin"
+        android:hint="Tên tài khoản"
+        android:maxLength="20" />
+    <!--password-->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etUsername"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_alignEnd="@+id/etUsername"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="0dp"
+        android:ems="10"
+        android:hint="Mật khẩu"
         android:inputType="numberPassword"
-        android:maxLength="4" />
+        android:maxLength="20" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etLogin"
-        android:layout_alignStart="@+id/etLogin"
-        android:layout_alignEnd="@+id/etLogin"
+        android:layout_below="@+id/etPassword"
+        android:layout_alignStart="@+id/etPassword"
+        android:layout_alignEnd="@+id/etPassword"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="0dp"
         android:background="#30dfb7"
-        android:text="@string/ng_nh_p"
+        android:text="Đăng nhập"
         android:textColor="#075b57" />
 
     <Button
-        android:text="@string/thay_pin"
+        android:id="@+id/btnReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLogin"
-        android:id="@+id/btnReset"
-        android:textColor="#14efe4"
-        android:background="#646464"
         android:layout_alignStart="@+id/btnLogin"
-        android:layout_alignEnd="@+id/btnLogin" />
+        android:layout_alignEnd="@+id/btnLogin"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="0dp"
+        android:background="#646464"
+        android:text="Thay mật khẩu"
+        android:textColor="#14efe4" />
 
     <TextView
-        android:text="@string/pin_m_c_nh_l_1234"
+        android:text="Tài khoản: admin, mật khẩu 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnReset"
-        android:layout_alignStart="@+id/btnReset"/>
+        android:layout_alignStart="@+id/btnReset"
+        android:layout_marginTop="2dp"/>
 
 </RelativeLayout>

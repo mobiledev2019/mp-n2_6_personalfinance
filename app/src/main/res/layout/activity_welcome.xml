@@ -5,7 +5,7 @@
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#30dfb7"
+    android:background="#EDEDDF"
     tools:context="com.example.personal.WelcomeActivity">
     <ImageView
         android:layout_width="150dp"
@@ -17,7 +17,7 @@
         android:layout_marginTop="116dp" />
 
     <TextView
-        android:text="Money Manager"
+        android:text="Personal Finance"
         android:textSize="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

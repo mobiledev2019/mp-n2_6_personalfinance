@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8sp"
-    android:background="#30dfb7"
+    android:background="#EDEDDF"
     tools:context="com.example.personal.ThemgiaodichActivity">
 
     <TextView
@@ -184,7 +184,7 @@
                     android:layout_margin="5dp"
                     android:padding="5dp"
                     android:background="#ffffff"
-                    android:text="Phân Nhóm"
+                    android:text="Phân nhóm"
                     android:textColor="#000"
                     android:textSize="19sp"
                     android:textStyle="bold" />

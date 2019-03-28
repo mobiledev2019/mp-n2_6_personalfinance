@@ -26,11 +26,7 @@
         <activity android:name=".ThuChiMainActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ThongKe.StatsActivity" />
-        <activity android:name=".ThongKe.StatsHomNay" />
-        <activity android:name=".ThongKe.StatsThangNay" />
-        <activity android:name=".ThongKe.StatsNamNay" />
-        <activity android:name=".CaiDatActivity" />
+
     </application>
 
 </manifest>

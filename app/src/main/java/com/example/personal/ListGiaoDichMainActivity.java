@@ -44,7 +44,6 @@ public class ListGiaoDichMainActivity extends AppCompatActivity {
             contacts.setSotien(db.lichsugiaodich().get(i).getSotien());
             contacts.setTaikhoan(db.lichsugiaodich().get(i).getTaikhoan());
             _Contacts.add(contacts);
-
         }
         mListView = (ListView) findViewById(R.id.listView1);
 
@@ -57,14 +56,10 @@ public class ListGiaoDichMainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
                 delcaidat(position);
-
                 return false;
             }
         });
-
     }
-
-
 
     public void delcaidat(final int position) {
         new AlertDialog.Builder(ListGiaoDichMainActivity.this)

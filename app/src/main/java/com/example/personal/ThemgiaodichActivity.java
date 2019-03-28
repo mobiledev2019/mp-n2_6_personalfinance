@@ -48,7 +48,7 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
         actionBar.setHomeButtonEnabled(true);
         db= new DatabaseHandler(this);
         db.open();
-        sptk=(Spinner)findViewById(R.id.spintk);
+
         luu=(Button)findViewById(R.id.savegd);
         ngaythang = (EditText) findViewById(R.id.etngaygiaodich);
         sotien = (EditText) findViewById(R.id.edsotien);
@@ -65,6 +65,7 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         ngaythang.setText( sdf.format(c.getTime()));
 
+        sptk=(Spinner)findViewById(R.id.spintk);
         final List<String> taikhoan=new ArrayList<String>();
         taikhoan.add("Tiền Mặt");
         taikhoan.add("Tiết Kiệm");
@@ -72,6 +73,7 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, taikhoan);
         sptk.setAdapter(adapter);
+
         sploaigd=(Spinner)findViewById(R.id.spinloaigd);
         final List<String> loaigd=new ArrayList<String>();
         loaigd.add("Khoản Thu");
@@ -79,8 +81,23 @@ public class ThemgiaodichActivity extends AppCompatActivity implements
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, loaigd);
         sploaigd.setAdapter(adapter1);
-        spinphannhom=(Spinner)findViewById(R.id.spinphannhom);
         sploaigd.setOnItemSelectedListener(this);
+        
+        spinphannhom=(Spinner)findViewById(R.id.spinphannhom);
+        final List<String> phannhom=new ArrayList<String>();
+        phannhom.add("Đồ ăn");
+        phannhom.add("Trang phục");
+        phannhom.add("Đi lại");
+        phannhom.add("Học tập");
+        phannhom.add("Sức khỏe");
+        phannhom.add("Nhà cửa");
+        ArrayAdapter<String> adapterpn = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, phannhom);
+        spinphannhom.setAdapter(adapterpn);
+
+
+
+
         spintrangthai = (Spinner)findViewById(R.id.spintrangthai);
         final List<String> trangthai=new ArrayList<String>();
         trangthai.add("Hoàn tất");
