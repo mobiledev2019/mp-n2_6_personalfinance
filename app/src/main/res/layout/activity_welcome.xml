@@ -5,24 +5,28 @@
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDDF"
+    android:background="#FAF7F7"
     tools:context="com.example.personal.WelcomeActivity">
+
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/ic_launcher"
-        android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="116dp" />
+        android:layout_marginTop="116dp"
+        android:contentDescription="@string/desLogo"
+        app:srcCompat="@drawable/ic_launcher" />
 
     <TextView
-        android:text="Personal Finance"
-        android:textSize="30dp"
+        android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/app_name"
+        android:text="@string/app_name"
+        android:textSize="25dp" />
+
 </RelativeLayout>

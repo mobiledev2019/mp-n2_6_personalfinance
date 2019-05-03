@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="6dp"
+    android:orientation="vertical"
+    android:background="#EDEDDF"
+    tools:context=".CAActivity"
+    android:weightSum="1">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:layout_weight="0.64"
+        android:paddingTop="30dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tbl"
+            android:background="@drawable/thuchitable_background">
+            <!--tien mat-->
+            <TableRow
+                android:layout_marginBottom="3sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:src="@drawable/money2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="0.2"
+                    android:paddingTop="13sp"
+                    android:text="@string/tvCash"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tvCash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/defaultMoney"
+                    android:paddingTop="13dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"/>
+
+            </TableRow>
+
+            <!--duong ngan cach cac hang-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="#BBBBBB"/>
+
+            <!--tien tiet kiem-->
+            <TableRow
+                android:layout_marginBottom="3sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:src="@drawable/money1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="0.2"
+                    android:paddingTop="13sp"
+                    android:text="@string/tvSaveMoney"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tvSaveMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/defaultMoney"
+                    android:paddingTop="13dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"/>
+
+            </TableRow>
+
+            <!--duong ngan cach cac hang-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="#BBBBBB"/>
+
+            <!--tien tiet kiem-->
+            <TableRow
+                android:layout_marginBottom="3sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:src="@drawable/money3"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="0.2"
+                    android:paddingTop="13sp"
+                    android:text="@string/tvCredit"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tvCredit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/defaultMoney"
+                    android:paddingTop="13dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"/>
+
+            </TableRow>
+
+            <!--duong ngan cach cac hang-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="#BBBBBB"/>
+
+            <!--tien tiet kiem-->
+            <TableRow
+                android:layout_marginBottom="3sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:src="@drawable/money4"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="0.2"
+                    android:paddingTop="13sp"
+                    android:text="@string/tvRemain"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tvRemain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/defaultMoney"
+                    android:paddingTop="13dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_gravity="end"/>
+
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <!--them giao dich-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/btnAddCA"
+            android:textColor="#14efe4"
+            android:background="#646464"
+            android:padding="10dp"
+            android:text="@string/btnAddCA"/>
+
+        <!--lich su-->
+        <Button
+            android:id="@+id/btnHistory"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#4DABF1"
+            android:padding="10dp"
+            android:text="@string/btnHistory"
+            android:textColor="#14efe4" />
+
+        <!--thoat-->
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F84C4C"
+            android:padding="10dp"
+            android:text="@string/btnExit"
+            android:textColor="#14efe4" />
+    </LinearLayout>
+
+
+</LinearLayout>

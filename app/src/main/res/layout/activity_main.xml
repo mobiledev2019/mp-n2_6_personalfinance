@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#EDEDDF"
-    tools:context="com.example.personal.MainActivity">
+    android:id="@android:id/tabhost"
+    tools:context=".MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
         <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
             <TabWidget
-                android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#26efc1"
-                />
-
+                android:id="@android:id/tabs"
+                android:background="#26efc1"/>
         </RelativeLayout>
-
         <FrameLayout
-            android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </FrameLayout>
-
-
+            android:layout_height="fill_parent"
+            android:id="@android:id/tabcontent"/>
     </LinearLayout>
+
 </TabHost>

@@ -6,6 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WelcomeActivity">
@@ -15,18 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ListGiaoDichMainActivity"
-            android:label="Lịch sử"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ThemgiaodichActivity"
-            android:label="Thêm giao dịch"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".ThuChiMainActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".CAActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".StatisticsActivity"/>
+        <activity android:name=".LimitActivity"/>
+        <activity android:name=".AddCAActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ListCAActtivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

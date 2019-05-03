@@ -11,36 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler {
-
-    private static final String DATABASE_NAME = "quanlychitieu";
-    private static final int DATABASE_ver = 1;
-    static final String TABLE_NAME = "giaodich";
-    static final String TABLE_NAME2 = "thuchi";
-    static final String COLUM_ID = "id";
-    static final String COLUM_KHOANTHUKHOANCHI = "khoanthukhoanchi";
-    static final String COLUM_PHANLOAI = "phanloai";
-    static final String COLUM_TAIKHOAN = "taikhoan";
-    static final String COLUM_LOAIGIAODICH = "loaigiaodich";
-    static final String COLUM_SOTIEN = "sotien";
-    static final String COLUM_LYDO = "lydo";
-    static final String COLUM_PHANNHOM = "phannhom";
-    static final String COLUM_NGAYGIAODICH = "ngaygiaodich";
-    static final String COLUM_NGAY = "ngay";
-    static final String COLUM_THANG = "thang";
-    static final String COLUM_NAM = "nam";
-    private Context _context;
-    private static Context context;
-    static SQLiteDatabase db;
-    SQLiteDatabase db1;
+    private static final String DATABASE_NAME = "Personal";
+    private Context context;
     static OpenHelper openHelper;
+    private SQLiteDatabase database;
+    static final String tblReceiptPayment = "tblReceiptPayment";
+    static final String caID = "caID";
+    static final String caAccount = "caAccount";
+    static final String caType = "caType";
+    static final String caAmount = "caAmount";
+    static final String caReason = "caReason";
+    static final String caGroup = "caGroup";
+    static final String caDate = "caDate";
 
     public DatabaseHandler(Context context) {
-        DatabaseHandler.context = context;
+        this.context = context;
     }
 
-    public DatabaseHandler open() throws SQLException {
-        openHelper = new OpenHelper(context);
-        db = openHelper.getWritableDatabase();
+    public DatabaseHandler open() {
+        try {
+            this.openHelper = new OpenHelper(context);
+            this.database = openHelper.getWritableDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
@@ -48,389 +42,97 @@ public class DatabaseHandler {
         openHelper.close();
     }
 
-    public long themkhoanthuchi(String khoanthukhoanchi, String phanloai) {
+    public boolean addCA(String account, String type, String amount,
+                         String reason, String group, String date) {
         ContentValues cv = new ContentValues();
-        cv.put(COLUM_KHOANTHUKHOANCHI, khoanthukhoanchi);
-        cv.put(COLUM_PHANLOAI, phanloai);
+        cv.put(caAccount,account);
+        cv.put(caType, type);
+        cv.put(caAmount, amount);
+        cv.put(caGroup, group);
+        cv.put(caReason, reason);
+        cv.put(caDate, date);
 
-        return db.insert(TABLE_NAME2, null, cv);
-
-    }
-
-    public void Delete(String phanloai, String khoanthukhoanchi) {
-        db.execSQL("DELETE FROM " + TABLE_NAME2 + " WHERE " + COLUM_PHANLOAI
-                + "='" + phanloai + "'" + " AND " + COLUM_KHOANTHUKHOANCHI
-                + " = '" + khoanthukhoanchi + "'");
-        db.close();
-    }
-
-    public void Deletels(String ngaygiaodich, String phannhom, String sotien,
-                         String taikhoan) {
-
-        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUM_NGAYGIAODICH
-                + "='" + ngaygiaodich + "'" + " AND " + COLUM_PHANNHOM + " = '"
-                + phannhom + "'" + " AND " + COLUM_SOTIEN + " = '" + sotien + "'"
-                + " AND " + COLUM_TAIKHOAN + " = '" + taikhoan + "'");
-        db.close();
-    }
-
-    public long themgiaodich(String taikhoan, String loaigiaodich,
-                             String sotien, String lydo, String ngaygiaodich,
-                             String ngay, String thang, String nam) {
-        ContentValues cv1 = new ContentValues();
-        cv1.put(COLUM_TAIKHOAN, taikhoan);
-        cv1.put(COLUM_LOAIGIAODICH, loaigiaodich);
-        cv1.put(COLUM_SOTIEN, sotien);
-        cv1.put(COLUM_LYDO, lydo);
-        cv1.put(COLUM_PHANNHOM, "tt");
-        cv1.put(COLUM_NGAYGIAODICH, ngaygiaodich);
-        cv1.put(COLUM_NGAY, ngay);
-        cv1.put(COLUM_THANG, thang);
-        cv1.put(COLUM_NAM, nam);
-
-        return db.insert(TABLE_NAME, null, cv1);
-
-    }
-
-
-    static class OpenHelper extends SQLiteOpenHelper {
-
-        public OpenHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_ver);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table " + TABLE_NAME + " ( "
-                    + COLUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"
-                    + COLUM_TAIKHOAN + " text," + COLUM_LOAIGIAODICH + " text,"
-                    + COLUM_SOTIEN + " text," + COLUM_LYDO + " text,"
-                    + COLUM_PHANNHOM + " text," + COLUM_NGAYGIAODICH + " text,"
-                    + COLUM_NGAY + " text," + COLUM_THANG + " text,"
-                    + COLUM_NAM + " text);"
-
-            );
-            db.execSQL("create table " + TABLE_NAME2 + " ( " + COLUM_ID
-                    + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + COLUM_KHOANTHUKHOANCHI + " text,"
-                    + COLUM_PHANLOAI + " text);"
-
-            );
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
-        }
-
-    }
-
-    public List<String> getAllNames(String thuchi) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT " + COLUM_PHANLOAI + " FROM "
-                + TABLE_NAME2 + " WHERE " + COLUM_KHOANTHUKHOANCHI + " = "
-                + "'" + thuchi + "'";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return names;
-    }
-
-    public List<String> getloggiaodich(String phanloai) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT distinct " + COLUM_PHANNHOM + " FROM "
-                + TABLE_NAME + " WHERE " + COLUM_LOAIGIAODICH + " = " + "'"
-                + phanloai + "'";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return names;
-    }
-
-    public List<String> getlognam(String phanloai) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT  phanhom FROM giaodich WHERE nam = '2015'";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        return names;
-    }
-
-
-    public List<String> getsotien(String phannhom, String loaigiaodich) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT sum(" + COLUM_SOTIEN + ") FROM "
-                + TABLE_NAME + " where " + COLUM_PHANNHOM + " = '" + phannhom
-                + "' AND " + COLUM_LOAIGIAODICH + " = '" + loaigiaodich + "'";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        return names;
-    }
-
-//    public List<String> getsotienhomnay(String phannhom, String loaigiaodich) {
-//        ArrayList<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT  sum("
-//                + COLUM_SOTIEN
-//                + ") FROM "
-//                + TABLE_NAME
-//                + " where "
-//                + COLUM_PHANNHOM
-//                + " = '"
-//                + phannhom
-//                + "' and "
-//                + COLUM_LOAIGIAODICH
-//                + " = '"
-//                + loaigiaodich
-//                + "' and ngay = strftime('%d','now') and  thang = strftime('%m','now') and nam =strftime('%Y','now');";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-//
-//    public List<String> getsotienthangnay(String phannhom, String loaigiaodich) {
-//        List<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT  sum("
-//                + COLUM_SOTIEN
-//                + ") FROM "
-//                + TABLE_NAME
-//                + " where "
-//                + COLUM_PHANNHOM
-//                + " = '"
-//                + phannhom
-//                + "' and "
-//                + COLUM_LOAIGIAODICH
-//                + " = '"
-//                + loaigiaodich
-//                + "'  and  thang = strftime('%m','now') and nam =strftime('%Y','now');";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-//
-//    public List<String> getsotiennamnay(String phannhom, String loaigiaodich) {
-//        List<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT  sum(" + COLUM_SOTIEN + ") FROM "
-//                + TABLE_NAME + " where " + COLUM_PHANNHOM + " = '" + phannhom
-//                + "' and " + COLUM_LOAIGIAODICH + " = '" + loaigiaodich
-//                + "'  and nam =strftime('%Y','now');";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-
-    public List<LichSuGiaoDich> lichsugiaodich() {
-        ArrayList<LichSuGiaoDich> lichsugiaodich = new ArrayList<LichSuGiaoDich>();
-        String selectQuery = "SELECT " + COLUM_NGAYGIAODICH + "," + COLUM_LYDO
-                + "," + COLUM_SOTIEN + "," + COLUM_TAIKHOAN + " FROM "
-                + TABLE_NAME;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-
-                LichSuGiaoDich contacts = new LichSuGiaoDich();
-                contacts.setTime(cursor.getString(0));
-                contacts.setPhanloai(cursor.getString(1));
-                contacts.setSotien(cursor.getString(2));
-                contacts.setTaikhoan(cursor.getString(3));
-
-                lichsugiaodich.add(contacts);
-
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return lichsugiaodich;
-    }
-
-    public List<String> getphanloai(String khoanthuchi) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT " + COLUM_PHANLOAI + " FROM  "
-                + TABLE_NAME2 + " where " + COLUM_KHOANTHUKHOANCHI + " = "
-                + "'" + khoanthuchi + "'";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(0));
-
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return names;
-    }
-
-//    public List<String> getCaiDatphanloai(String khoanthukhoanchi) {
-//        List<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT phanloai FROM "+TABLE_NAME2+" WHERE khoanthukhoanchi = '"+khoanthukhoanchi+"'";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-//
-//    public ArrayList<String> tongtien(String thuchi) {
-//        ArrayList<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT sum ( " + COLUM_SOTIEN + " ) FROM "
-//                + TABLE_NAME + " where " + COLUM_LOAIGIAODICH + "= '" + thuchi
-//                + "'";
-//
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-//
-//    public List<String> tongtienhomnay(String thuchi) {
-//        List<String> names = new ArrayList<String>();
-//
-//        String selectQuery = "SELECT sum ( "
-//                + COLUM_SOTIEN
-//                + " ) FROM "
-//                + TABLE_NAME
-//                + " where "
-//                + COLUM_LOAIGIAODICH
-//                + "= '"
-//                + thuchi
-//                + "' and ngay = strftime('%d','now') and  thang = strftime('%m','now') and nam =strftime('%Y','now');";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-//
-//    public List<String> tongtienthangnay(String thuchi) {
-//        List<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT sum ( "
-//                + COLUM_SOTIEN
-//                + " ) FROM "
-//                + TABLE_NAME
-//                + " where "
-//                + COLUM_LOAIGIAODICH
-//                + "= '"
-//                + thuchi
-//                + "' and  thang = strftime('%m','now') and nam =strftime('%Y','now');";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-//
-//    public List<String> tongtiennamnay(String thuchi) {
-//        List<String> names = new ArrayList<String>();
-//        String selectQuery = "SELECT sum ( " + COLUM_SOTIEN + " ) FROM "
-//                + TABLE_NAME + " where " + COLUM_LOAIGIAODICH + "= '" + thuchi
-//                + "' and nam =strftime('%Y','now');";
-//
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                names.add(cursor.getString(0));
-//
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return names;
-//    }
-
-    public List<String> taikhoan(String thuchi) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT sum ( " + COLUM_SOTIEN + " ) FROM "
-                + TABLE_NAME + " where " + COLUM_TAIKHOAN + "= '" + thuchi
-                + "'";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.getCount() > 0) {
-            if (cursor != null & cursor.moveToFirst()) {
-                do {
-                    names.add(cursor.getString(0));
-
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }
-        return names;
-
-    }
-
-    public boolean kiemtra(String spinthuchi, String kiemtra) {
-        List<String> names = new ArrayList<String>();
-        String selectQuery = "SELECT  COUNT(*) from " + TABLE_NAME2 + " where "
-                + COLUM_PHANLOAI + "=" + "'" + kiemtra + "'" + " AND "
-                + COLUM_KHOANTHUKHOANCHI + "=" + "'" + spinthuchi + "'";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                names.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        int so = Integer.parseInt(names.get(0));
-        if (so == 0) {
-            return true;
-        } else {
+        long result = -1;
+        try {
+            result = database.insert(tblReceiptPayment, null, cv);
+        } catch(Exception e) {
+            e.printStackTrace();
             return false;
         }
+        return result == -1 ? false : true;
+    }
+
+    public List<ReceiptPayment> getReceiptPayment() {
+        ArrayList<ReceiptPayment> receiptPayments = new ArrayList<ReceiptPayment>();
+        String sql = "select " + caAccount + ", " + caReason + ", "
+                + caAmount + ", " + caDate + " from " + tblReceiptPayment;
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            ReceiptPayment receiptPayment = null;
+            do {
+                receiptPayment = new ReceiptPayment();
+                receiptPayment.setAccountCA(cursor.getString(0));
+                receiptPayment.setReasonCA(cursor.getString(1));
+                receiptPayment.setAmountCA(cursor.getString(2));
+                receiptPayment.setDateCA(cursor.getString(3));
+                receiptPayments.add(receiptPayment);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return receiptPayments;
+    }
+
+    // ham lay so tien theo tai khoan truyen vao nhu tien mat, tien tiet kiem, the tin dung
+    public String getAmountByAccount(String account) {
+        String amount = null;
+        String sql = "select sum(" + caAmount + ") from " + tblReceiptPayment + " where " + caAccount + "='" + account+"'";
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            amount = cursor.getString(0);
+        }
+        return amount == null ? "0" : amount;
+    }
+
+    /**
+     * Hàm lấy số tiền theo từng loại khoản thu, khoanr chi và lấy dữ liệu ngày này, tháng này, năm này
+     * @param typeca là Khoản thu or Khoản chi
+     * @param time có thể truyền vào theo dạng dd/MM/yyyy or /MM/yyyy or /yyyy để lấy dữ liệu hôm nay, tháng này, or năm này
+     * @return lấy ra số tiền theo khoản thu, or khoản chi theo thời gian truyền vào
+     */
+    public String getAmountByTypeAndTime(String typeca, String time) {
+        String amount = null;
+        String sql = "select sum(" + caAmount + ") from " + tblReceiptPayment + " where " + caType + "='" + typeca + "' and "
+                    + caDate + " like '%" + time + "'" ;
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            amount = cursor.getString(0);
+        }
+        return amount == null ? "0" : amount;
+    }
+
+    static class OpenHelper extends SQLiteOpenHelper{
+        public OpenHelper(Context context) {
+            super(context,DATABASE_NAME,null,1);
+        }
+        @Override
+        public void onCreate(SQLiteDatabase database) {
+            String sql = "create table "+tblReceiptPayment +"("
+                    + caID + " integer primary key autoincrement not null,"
+                    + caAccount + " text,"
+                    + caType + " text,"
+                    + caAmount +" text,"
+                    + caReason + " text,"
+                    + caGroup + " text,"
+                    + caDate + " text );";
+            database.execSQL(sql);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase database, int olVersion, int newVersion) {
+            String sql = "drop table if exists tblReceiptPayment";
+            onCreate(database);
+        }
+
     }
 
 }

@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">Personal Finance</string>
-    <string name="title_activity_thong_ke">ThongKeActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_thong_ke_toan_bo">ThongKeToanBoAinancectivity</string>
-    <string name="money_manager">Personal Finance</string>
-    <!--<string name="nh_p_m_pin">Nhập mã PIN</string>-->
-    <!--<string name="ng_nh_p">Đăng nhập</string>-->
-    <!--<string name="thay_pin">Thay PIN</string>-->
-    <!--<string name="pin_m_c_nh_l_1234">*PIN mặc định là: 1234</string>-->
+    <string name="defaultMoney">1.0</string>
+    <string name="desLogo">Logo ứng dụng</string>
+    <string name="tvCash" >Tiền mặt</string>
+    <string name="tvSaveMoney" >Tiền tiết kiệm</string>
+    <string name="tvCredit" >Thẻ tín dụng</string>
+    <string name="tvRemain" >Số dư</string>
+    <string name="btnAddCA">Thêm giao dịch</string>
+    <string name="btnHistory">Lịch sử</string>
+    <string name="btnExit">Thoát</string>
+
+    <string name="tvAddCA">THÊM GIAO DỊCH</string>
+    <string name="tvAccount">Tài khoản</string>
+    <string name="tvTypeCA">Loại giao dịch</string>
+    <string name="tvAmount">Số tiền</string>
+    <string name="tvReason">Lý do</string>
+    <string name="tvGroup">Phân nhóm</string>
+    <string name="tvStatus">Trạng thái giao dịch</string>
+    <string name="tvDateCA">Ngày giao dịch</string>
+
 </resources>
