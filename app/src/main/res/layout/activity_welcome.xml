@@ -5,7 +5,7 @@
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF7F7"
+    android:background="#EDEDDF"
     tools:context="com.example.personal.WelcomeActivity">
 
     <ImageView
@@ -14,9 +14,9 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="230dp"
         android:contentDescription="@string/desLogo"
-        app:srcCompat="@drawable/ic_launcher" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/textview"

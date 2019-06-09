@@ -37,7 +37,7 @@ public class StatisticsActivity extends AppCompatActivity {
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Thu Chi");
         pieChart.setCenterTextSize(10);
-        pieChart.setDescription("Biểu đồ thu chi");
+        pieChart.setDescription("");
 //        pieChart.setDrawEntryLabels(true);
 
         spTime = (Spinner) findViewById(R.id.spTimeStatistics);
@@ -69,7 +69,6 @@ public class StatisticsActivity extends AppCompatActivity {
                     time = "/"+sYear;
                 }
                 addDataSet(pieChart, time);
-
             }
 
             @Override
@@ -78,8 +77,6 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         });
 
-
-//        pieChart.setOn
     }
 
     private void addDataSet(PieChart pieChart, String time) {
@@ -94,7 +91,7 @@ public class StatisticsActivity extends AppCompatActivity {
         entries.add(new Entry(amountPayment, 2));
         list.add("Khoản thu");
         list.add("Khoản chi");
-        PieDataSet pieDataSet = new PieDataSet(entries, "Thu chi");
+        PieDataSet pieDataSet = new PieDataSet(entries, "");
 
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);

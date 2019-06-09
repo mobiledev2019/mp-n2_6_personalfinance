@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDEDDF"
+    tools:context=".LimitActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="#1dd"
+        android:text="Hạn mức chi tháng này"
+        android:textColor="#E20808"
+        android:textSize="18dp"
+        android:gravity="center"/>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="#DEF5F5"
+        android:id="@+id/tvMoneyLimit"
+        android:textColor="#FFBFBF"
+        android:textSize="18dp"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:background="#1dd"
+        android:text="Nhập số tiền hạn mức chi tháng"
+        android:textColor="#E20808"
+        android:textSize="18dp"
+        android:gravity="center"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:id="@+id/edMoneylimit"
+        android:inputType="number"
+        android:ems="10"
+        android:hint="VND">
+        <requestFocus/>
+    </EditText>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSaveLimit"
+        android:padding="10dp"
+        android:text="Lưu"
+        android:background="#646464"
+        android:textColor="#14efe4"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

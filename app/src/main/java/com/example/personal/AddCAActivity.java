@@ -2,8 +2,16 @@ package com.example.personal;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,22 +23,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddCAActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddCAActivity extends AppCompatActivity  {
     Spinner spAccount, spTypeCA, spGroupCA, spStatusCA;
     Button btnSave;
     EditText edDateCA, edAmount, edReasonCA;
     ImageView imgDatePicker;
     DatabaseHandler database;
-    private int mYear,mMonth,mDay;
+    int mYear,mMonth,mDay;
+    NotificationManager notificationManager;
     static List<String> accounts = new ArrayList<String>(Arrays.asList("Tiền mặt", "Tiền tiết kiệm","Thẻ tín dụng"));
     static List<String> types = new ArrayList<String>(Arrays.asList("Khoản thu", "Khoản chi"));
-    static List<String> groups = new ArrayList<String>(Arrays.asList("Đồ ăn", "Trang phục","Đi lại","Học tâp", "Sức khỏe", "Nhà cửa", "Nhận lương", "Khác"));
+    static List<String> groups = new ArrayList<String>(Arrays.asList("Ăn uống", "Trang phục","Đi lại","Học tập", "Sức khỏe", "Giải trí", "Nhà cửa", "Nhận lương", "Khác"));
     static List<String> status = new ArrayList<String>(Arrays.asList("Hoàn tất", "Chưa hoàn tất"));
 
     @Override
@@ -107,16 +117,25 @@ public class AddCAActivity extends AppCompatActivity implements AdapterView.OnIt
                     boolean check = database.addCA(spAccount.getSelectedItem().toString(), spTypeCA.getSelectedItem().toString(),
                             amount, edReasonCA.getText().toString(), spGroupCA.getSelectedItem().toString(),
                             edDateCA.getText().toString());
-                    database.close();
+
                     if(check == true) {
                         Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-
+                        int paymentAmount = Integer.parseInt(database.getAmountByTypeAndTime("Khoản chi", "2019"));
+                        SharedPreferences preferences = getSharedPreferences("MoneyLimit", MODE_PRIVATE);
+                        int limit = preferences.getInt("MoneyLimit", -1);
+                        if(true) {
+                            addNotification();
+//                            Toast.makeText(getApplicationContext(), "Tháng này bạn đã tiêu nhiều tiền", Toast.LENGTH_SHORT).show();
+                        }
+//
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                     }
+                    database.close();
                     Intent i = new Intent(AddCAActivity.this, MainActivity.class);
                     startActivity(i);
+
                 }
 
             }
@@ -150,13 +169,20 @@ public class AddCAActivity extends AppCompatActivity implements AdapterView.OnIt
 
     };
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+    private void addNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "chanelID")
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle("Personal Finance")
+                .setContentText("Hạn mức, Bạn đã bội chi. Bạn hãy điều hiển thói quen thu chi nhé")
+                .setPriority(Notification.PRIORITY_MAX);
+        Intent intent = new Intent(getApplicationContext(), AddCAActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("chanelID","MyChannel", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+        notificationManager.notify(0, builder.build());
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
