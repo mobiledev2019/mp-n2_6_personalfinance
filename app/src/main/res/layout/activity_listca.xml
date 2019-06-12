@@ -13,9 +13,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Lịch sử giao dịch"
+        android:text="LỊCH SỬ GIAO DỊCH"
         android:textColor="#000"
-        android:background="#ddd"/>
+        android:textStyle="bold"
+        android:background="#ddd"
+        android:textSize="20dp"/>
 
     <ListView
         android:layout_width="match_parent"

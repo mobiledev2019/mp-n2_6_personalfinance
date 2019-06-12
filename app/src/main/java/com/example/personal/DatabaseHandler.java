@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler {
-    private static final String DATABASE_NAME = "Personal";
+    private static final String DATABASE_NAME = "Personal1";
     private Context context;
     static OpenHelper openHelper;
     private SQLiteDatabase database;
@@ -66,21 +66,23 @@ public class DatabaseHandler {
 
     public List<ReceiptPayment> getReceiptPayment() {
         ArrayList<ReceiptPayment> receiptPayments = new ArrayList<ReceiptPayment>();
-        String sql = "select " + caAccount + ", " + caReason + ", "
-                + caAmount + ", " + caDate + " from " + tblReceiptPayment;
+        String sql = "select " + caAccount + ", " + caGroup + ", "
+                + caAmount + ", " + caDate + ", " + caImgBill +" from " + tblReceiptPayment;
         Cursor cursor = database.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
             ReceiptPayment receiptPayment = null;
             do {
                 receiptPayment = new ReceiptPayment();
                 receiptPayment.setAccountCA(cursor.getString(0));
-                receiptPayment.setReasonCA(cursor.getString(1));
+                receiptPayment.setGroupCA(cursor.getString(1));
                 receiptPayment.setAmountCA(cursor.getString(2));
                 receiptPayment.setDateCA(cursor.getString(3));
+                receiptPayment.setImageBill(cursor.getBlob(4));
                 receiptPayments.add(receiptPayment);
             } while (cursor.moveToNext());
         }
         cursor.close();
+
         return receiptPayments;
     }
 

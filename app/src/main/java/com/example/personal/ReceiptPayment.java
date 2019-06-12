@@ -1,6 +1,9 @@
 package com.example.personal;
 
+import java.util.Arrays;
+
 public class ReceiptPayment {
+    private String Id;
     private String accountCA;
     private String typeCA;
     private String amountCA;
@@ -8,6 +11,24 @@ public class ReceiptPayment {
     private String groupCA;
     private String statusCA;
     private String dateCA;
+    private byte[] imageBill;
+
+    public byte[] getImageBill() {
+        return imageBill;
+    }
+
+    public void setImageBill(byte[] imageBill) {
+        this.imageBill = imageBill;
+    }
+
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public String getAccountCA() {
         return accountCA;
@@ -67,6 +88,16 @@ public class ReceiptPayment {
 
     @Override
     public String toString() {
-        return reasonCA + "     " + amountCA  + "       " + dateCA  + "     " + accountCA;
+        return "ReceiptPayment{" +
+                "Id='" + Id + '\'' +
+                ", accountCA='" + accountCA + '\'' +
+                ", typeCA='" + typeCA + '\'' +
+                ", amountCA='" + amountCA + '\'' +
+                ", reasonCA='" + reasonCA + '\'' +
+                ", groupCA='" + groupCA + '\'' +
+                ", statusCA='" + statusCA + '\'' +
+                ", dateCA='" + dateCA + '\'' +
+                ", imageBill=" + Arrays.toString(imageBill) +
+                '}';
     }
 }
