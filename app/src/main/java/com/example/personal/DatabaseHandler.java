@@ -23,6 +23,7 @@ public class DatabaseHandler {
     static final String caReason = "caReason";
     static final String caGroup = "caGroup";
     static final String caDate = "caDate";
+    static final String caImgBill = "imgBill";
 
     public DatabaseHandler(Context context) {
         this.context = context;
@@ -43,7 +44,7 @@ public class DatabaseHandler {
     }
 
     public boolean addCA(String account, String type, String amount,
-                         String reason, String group, String date) {
+                         String reason, String group, String date, byte[] imageBill) {
         ContentValues cv = new ContentValues();
         cv.put(caAccount,account);
         cv.put(caType, type);
@@ -51,6 +52,7 @@ public class DatabaseHandler {
         cv.put(caGroup, group);
         cv.put(caReason, reason);
         cv.put(caDate, date);
+        cv.put(caImgBill, imageBill);
 
         long result = -1;
         try {
@@ -116,14 +118,15 @@ public class DatabaseHandler {
         }
         @Override
         public void onCreate(SQLiteDatabase database) {
-            String sql = "create table "+tblReceiptPayment +"("
+            String sql = "create table if not exists "+tblReceiptPayment +"("
                     + caID + " integer primary key autoincrement not null,"
                     + caAccount + " text,"
                     + caType + " text,"
                     + caAmount +" text,"
                     + caReason + " text,"
                     + caGroup + " text,"
-                    + caDate + " text );";
+                    + caDate + " text,"
+                    + caImgBill + " blob);";
             database.execSQL(sql);
         }
 
