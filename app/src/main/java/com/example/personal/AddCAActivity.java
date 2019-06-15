@@ -23,6 +23,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,11 +40,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AddCAActivity extends AppCompatActivity  {
     Spinner spAccount, spTypeCA, spGroupCA, spStatusCA;
@@ -71,6 +76,38 @@ public class AddCAActivity extends AppCompatActivity  {
 
 
         mapField();
+        edAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                edAmount.removeTextChangedListener(this);
+                try {
+                    String strAmount = s.toString();
+                    long amount;
+                    if(strAmount.contains(".")) {
+                        strAmount = strAmount.replaceAll("\\.", "");
+                    }
+                    amount = Long.parseLong(strAmount);
+                   String pattern = "#,###,###,###";
+                   DecimalFormat decimalFormat = new DecimalFormat(pattern);
+                   String formatAmount = decimalFormat.format(amount);
+                    edAmount.setText(formatAmount);
+                    edAmount.setSelection(edAmount.getText().length());
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+                edAmount.addTextChangedListener(this);
+            }
+        });
         ArrayAdapter<String> adapter = null;
         // thiết lập chọn select taif khoan
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, accounts);
@@ -115,6 +152,7 @@ public class AddCAActivity extends AppCompatActivity  {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(edAmount.getText().length() < 1 ) {
                     Toast.makeText(getApplicationContext(), "Bạn cần điền số tiền chi tiêu!", Toast.LENGTH_SHORT).show();
                     edAmount.requestFocus();
@@ -122,9 +160,13 @@ public class AddCAActivity extends AppCompatActivity  {
                     Toast.makeText(getApplicationContext(), "Bạn cần điền lý do chi tiêu!", Toast.LENGTH_SHORT).show();
                     edReasonCA.requestFocus();
                 } else {
+                    // chuyển định dạng có dấy . thành chuổi chỉ toàn số
                     String amount = edAmount.getText().toString();
+                    if(amount.contains(".")) {
+                        amount = amount.replaceAll("\\.", "");
+                    }
                     if(spTypeCA.getSelectedItem().equals("Khoản chi")) {
-                        amount = "-" + edAmount.getText().toString();
+                        amount = "-" + amount;
                     }
 
                     BitmapDrawable bitmapDrawable = (BitmapDrawable) imgBill.getDrawable();
@@ -266,9 +308,10 @@ public class AddCAActivity extends AppCompatActivity  {
             mMonth = monthOfYear+1;
             mDay = dayOfMonth;
             String day = mDay + "", month = mMonth+"";
-            if(mDay < 10) day = "0"+mDay;
+            if(mDay < 10) day = "0" + mDay;
             if(mMonth < 10) month = "0"+mMonth;
             edDateCA.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(mYear));
+
 
         }
 
@@ -276,7 +319,7 @@ public class AddCAActivity extends AppCompatActivity  {
 
     private void addNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "chanelID")
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Personal Finance")
                 .setContentText("Hạn mức, Bạn đã bội chi. Bạn hãy điều hiển thói quen thu chi nhé")
                 .setPriority(Notification.PRIORITY_MAX);
