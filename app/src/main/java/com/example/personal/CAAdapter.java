@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CAAdapter extends ArrayAdapter<ReceiptPayment> {
 
     private class ViewHolder {
         ImageView imgBill;
-        TextView tvGroup, tvDate, tvAmount, tvAccount;
+        TextView tvGroup, tvReason, tvDate, tvAmount, tvAccount;
     }
 
     @Override
@@ -46,6 +47,7 @@ public class CAAdapter extends ArrayAdapter<ReceiptPayment> {
             convertView = LayoutInflater.from(context).inflate(R.layout.ca_item, parent, false);
             viewHolder.imgBill = (ImageView) convertView.findViewById(R.id.imgBill);
             viewHolder.tvGroup = (TextView) convertView.findViewById(R.id.tvGroup);
+            viewHolder.tvReason = (TextView) convertView.findViewById(R.id.tvReason);
             viewHolder.tvAmount = (TextView) convertView.findViewById(R.id.tvAmount);
             viewHolder.tvDate = (TextView) convertView.findViewById(R.id.tvDateCa);
             viewHolder.tvAccount = (TextView) convertView.findViewById(R.id.tvAccount);
@@ -58,7 +60,14 @@ public class CAAdapter extends ArrayAdapter<ReceiptPayment> {
 
         viewHolder.tvGroup.setText(receiptPayment.getGroupCA());
         viewHolder.tvDate.setText(receiptPayment.getDateCA());
-        viewHolder.tvAmount.setText(receiptPayment.getAmountCA());
+        String amount = receiptPayment.getAmountCA();
+        if(amount.charAt(0) == '-') {
+            amount = amount.substring(1);
+            amount = "-" + formatCurrency(amount);
+        } else {
+            amount = formatCurrency(amount);
+        }
+        viewHolder.tvAmount.setText(amount);
         viewHolder.tvAccount.setText(receiptPayment.getAccountCA());
         // chuyển byte[] -> bitmap
         byte[] bill = receiptPayment.getImageBill();
@@ -66,5 +75,15 @@ public class CAAdapter extends ArrayAdapter<ReceiptPayment> {
         viewHolder.imgBill.setImageBitmap(bitmap);
 
         return convertView;
+    }
+
+    // ham format tien
+    public String formatCurrency(String amount) {
+        String result = "";
+        long money = Long.parseLong(amount);
+        String pattern = "#,###,###,###";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        result = decimalFormat.format(money);
+        return result;
     }
 }

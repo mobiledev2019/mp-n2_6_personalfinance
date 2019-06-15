@@ -67,7 +67,7 @@ public class DatabaseHandler {
     public List<ReceiptPayment> getReceiptPayment() {
         ArrayList<ReceiptPayment> receiptPayments = new ArrayList<ReceiptPayment>();
         String sql = "select " + caAccount + ", " + caGroup + ", "
-                + caAmount + ", " + caDate + ", " + caImgBill +" from " + tblReceiptPayment;
+                + caAmount + ", " + caDate + ", " + caImgBill + ", " + caReason +" from " + tblReceiptPayment;
         Cursor cursor = database.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
             ReceiptPayment receiptPayment = null;
@@ -78,6 +78,7 @@ public class DatabaseHandler {
                 receiptPayment.setAmountCA(cursor.getString(2));
                 receiptPayment.setDateCA(cursor.getString(3));
                 receiptPayment.setImageBill(cursor.getBlob(4));
+                receiptPayment.setReasonCA(cursor.getString(5));
                 receiptPayments.add(receiptPayment);
             } while (cursor.moveToNext());
         }
