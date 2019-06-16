@@ -59,6 +59,7 @@ public class CAAdapter extends ArrayAdapter<ReceiptPayment> {
         ReceiptPayment receiptPayment = receiptPayments.get(position);
 
         viewHolder.tvGroup.setText(receiptPayment.getGroupCA());
+        viewHolder.tvReason.setText(receiptPayment.getReasonCA());
         viewHolder.tvDate.setText(receiptPayment.getDateCA());
         String amount = receiptPayment.getAmountCA();
         if(amount.charAt(0) == '-') {

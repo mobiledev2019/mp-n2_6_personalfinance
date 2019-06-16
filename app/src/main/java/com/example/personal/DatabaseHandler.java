@@ -7,11 +7,13 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseHandler {
-    private static final String DATABASE_NAME = "Personal1";
+    private static final String DATABASE_NAME = "Personal2";
     private Context context;
     static OpenHelper openHelper;
     private SQLiteDatabase database;
@@ -24,8 +26,10 @@ public class DatabaseHandler {
     static final String caGroup = "caGroup";
     static final String caDate = "caDate";
     static final String caImgBill = "imgBill";
+    static final String createdDate = "createDate";
+    static final String modifiedDate = "modifiedDate";
 
-    public DatabaseHandler(Context context) {
+  public DatabaseHandler(Context context) {
         this.context = context;
     }
 
@@ -53,12 +57,20 @@ public class DatabaseHandler {
         cv.put(caReason, reason);
         cv.put(caDate, date);
         cv.put(caImgBill, imageBill);
+        // lấy ngày hiện tại ra format theo định dạng dd/mm/yyyy để gắn vào trường createdDate vs ModifiedDate
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String calenderFormat = sdf.format(calendar.getTime());
+        cv.put(createdDate, calenderFormat);
+        cv.put(modifiedDate, calenderFormat);
+
 
         long result = -1;
         try {
             result = database.insert(tblReceiptPayment, null, cv);
         } catch(Exception e) {
             e.printStackTrace();
+
             return false;
         }
         return result == -1 ? false : true;
@@ -121,7 +133,7 @@ public class DatabaseHandler {
         }
         @Override
         public void onCreate(SQLiteDatabase database) {
-            String sql = "create table if not exists "+tblReceiptPayment +"("
+            String sql = "create table "+tblReceiptPayment +"("
                     + caID + " integer primary key autoincrement not null,"
                     + caAccount + " text,"
                     + caType + " text,"
@@ -129,6 +141,8 @@ public class DatabaseHandler {
                     + caReason + " text,"
                     + caGroup + " text,"
                     + caDate + " text,"
+                    + createdDate + " text,"
+                    + modifiedDate + " text,"
                     + caImgBill + " blob);";
             database.execSQL(sql);
         }

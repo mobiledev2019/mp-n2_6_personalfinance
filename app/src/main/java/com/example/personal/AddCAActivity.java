@@ -60,7 +60,7 @@ public class AddCAActivity extends AppCompatActivity  {
     int mYear,mMonth,mDay;
     NotificationManager notificationManager;
     static List<String> accounts = new ArrayList<String>(Arrays.asList("Tiền mặt", "Tiền tiết kiệm","Thẻ tín dụng"));
-    static List<String> types = new ArrayList<String>(Arrays.asList("Khoản thu", "Khoản chi"));
+    static List<String> types = new ArrayList<String>(Arrays.asList("Khoản chi", "Khoản thu"));
     static List<String> groups = new ArrayList<String>(Arrays.asList("Ăn uống", "Trang phục","Đi lại","Học tập", "Sức khỏe", "Giải trí", "Nhà cửa", "Nhận lương", "Khác"));
     static List<String> status = new ArrayList<String>(Arrays.asList("Hoàn tất", "Chưa hoàn tất"));
 
@@ -74,17 +74,17 @@ public class AddCAActivity extends AppCompatActivity  {
         database = new DatabaseHandler(this);
         database.open();
 
-
+        // hàm mount các trường khai báo ở trên vs các id trong layout
         mapField();
+
+        // chức năn tự động format số tiền khi người dùng nhập vào ô số tiền
         edAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -138,7 +138,8 @@ public class AddCAActivity extends AppCompatActivity  {
 
         // định dạng theo dd/MM/yyyy
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        edDateCA.setText(sdf.format(c.getTime()));
+        final String ddMMYYY = sdf.format(c.getTime());
+        edDateCA.setText(ddMMYYY);
 
         // su kien khi nhan vao img thi hien ra datepicker (co dung 2 ham onCreateDialog, onDateSet o duoi de set gia tri cho no
         imgDatePicker.setOnClickListener(new View.OnClickListener() {
@@ -180,11 +181,14 @@ public class AddCAActivity extends AppCompatActivity  {
 
                     if(check == true) {
                         Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                        int paymentAmount = Integer.parseInt(database.getAmountByTypeAndTime("Khoản chi", "2019"));
+//                        int paymentAmount = Integer.parseInt(database.getAmountByTypeAndTime("Khoản chi", "2019"));
                         SharedPreferences preferences = getSharedPreferences("MoneyLimit", MODE_PRIVATE);
-                        int limit = preferences.getInt("MoneyLimit", -1);
-                        if(true) {
-                            addNotification();
+                        int limit = preferences.getInt("MoneyLimit", 0);
+                        String month = ddMMYYY.substring(2); // dạng /MM/yyyy
+                        int amountPayment  = Integer.parseInt(database.getAmountByTypeAndTime("Khoản chi", month));
+                        if(limit != 0 && Math.abs(amountPayment) >= limit) {
+                            String message = "Hạn mức, Bạn đã bội chi. Hãy điều hiển thói quen thu chi nhé";
+                            addNotification(message);
 //                            Toast.makeText(getApplicationContext(), "Tháng này bạn đã tiêu nhiều tiền", Toast.LENGTH_SHORT).show();
                         }
 //
@@ -317,12 +321,13 @@ public class AddCAActivity extends AppCompatActivity  {
 
     };
 
-    private void addNotification() {
+    public void addNotification(String s) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "chanelID")
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle("Personal Finance")
-                .setContentText("Hạn mức, Bạn đã bội chi. Bạn hãy điều hiển thói quen thu chi nhé")
+                .setContentText(s)
                 .setPriority(Notification.PRIORITY_MAX);
+
         Intent intent = new Intent(getApplicationContext(), AddCAActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
         notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
