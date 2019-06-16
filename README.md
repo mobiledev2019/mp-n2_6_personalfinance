@@ -8,4 +8,5 @@ Các tính năng đang có:
 - Đặt hạn mức thu chi, nến vượt qua hạn mức thì gửi thông báo cho người dùng để cảnh báo
 - Cho phép người dùng lưu ảnh hóa đơn lại từ bằng cách chụp ảnh trưcj tiếp hoặc lấy ảnh ra từ thư viện.
 - Hiện thị lịch sử thu chi tiền sử dụng custom adapter, sắp xếp theo ngày thu chi tiền
-- Thêm cơ chế tự động định dạng lại số tiền khi người dùng nhập vào editt
+- Thêm cơ chế tự động định dạng lại số tiền khi người dùng nhập vào edit text
+- Thêm chức năng tự động kiểm tra người dùng đã thêm phiếu thu phiếu chi trong ngày chưa, nếu chưa thì gửi thông báo cho người dùng
