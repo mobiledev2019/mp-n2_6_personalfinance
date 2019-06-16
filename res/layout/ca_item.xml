@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:id="@+id/imgBill"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/image"
+        android:layout_marginTop="20dp"/>
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <!--Nhom thu chi-->
+        <TextView
+            android:id="@+id/tvGroup"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Đồ ăn"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/tvReason"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Mua bim bim"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"/>
+
+        <!--Ngay thu chi-->
+        <TextView
+            android:id="@+id/tvDateCa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/06/2019"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp">
+        <!--So tien-->
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="10000"
+            android:textColor="#F34738"
+            android:textSize="15dp" />
+
+        <!--Loai tai khoan-->
+        <TextView
+            android:id="@+id/tvAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiền tiết kiệm"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+</LinearLayout>

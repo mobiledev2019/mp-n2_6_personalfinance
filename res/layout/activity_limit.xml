@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/imageView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDDF"
+    android:orientation="vertical"
+    tools:context=".LimitActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_marginTop="10dp"
+        android:background="#1dd"
+        android:gravity="center"
+        android:text="Hạn mức chi tháng này"
+        android:textColor="#E20808"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/tvMoneyLimit"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:layout_marginTop="5dp"
+        android:background="#DEF5F5"
+        android:gravity="center"
+        android:textColor="#FFBFBF"
+        android:textSize="18dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:layout_marginTop="100dp"
+        android:background="#1dd"
+        android:gravity="center"
+        android:text="Nhập số tiền hạn mức chi tháng"
+        android:textColor="#E20808"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/edMoneylimit"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:ems="10"
+        android:hint="VND"
+        android:inputType="number"
+        android:padding="10dp">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btnSaveLimit"
+        android:layout_width="235dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="#FF9800"
+        android:padding="10dp"
+        android:text="LƯU THAY ĐỔI"
+        android:textColor="#0E0D0D" />
+
+</LinearLayout>
