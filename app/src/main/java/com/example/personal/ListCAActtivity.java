@@ -28,6 +28,7 @@ public class ListCAActtivity extends AppCompatActivity {
         Collections.sort(receiptPayments, new Comparator<ReceiptPayment>() {
             @Override
             public int compare(ReceiptPayment o1, ReceiptPayment o2) {
+                if(getYYMYMDD(o2.getDateCA()).compareTo(getYYMYMDD(o1.getDateCA())) == 0) return -1;
                 return getYYMYMDD(o2.getDateCA()).compareTo(getYYMYMDD(o1.getDateCA()));
             }
         });

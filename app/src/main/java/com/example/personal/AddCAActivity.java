@@ -58,7 +58,9 @@ public class AddCAActivity extends AppCompatActivity  {
     ImageButton ibtnCamera, ibtnForder;
     DatabaseHandler database;
     int mYear,mMonth,mDay;
-    NotificationManager notificationManager;
+    private static final int NOTIFICATION_ID = 0;
+    private static final String CHANNEL_ID = "channel_id_personal";
+    private NotificationManager notificationManager;
     static List<String> accounts = new ArrayList<String>(Arrays.asList("Tiền mặt", "Tiền tiết kiệm","Thẻ tín dụng"));
     static List<String> types = new ArrayList<String>(Arrays.asList("Khoản chi", "Khoản thu"));
     static List<String> groups = new ArrayList<String>(Arrays.asList("Ăn uống", "Trang phục","Đi lại","Học tập", "Sức khỏe", "Giải trí", "Nhà cửa", "Nhận lương", "Khác"));
@@ -181,17 +183,16 @@ public class AddCAActivity extends AppCompatActivity  {
 
                     if(check == true) {
                         Toast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-//                        int paymentAmount = Integer.parseInt(database.getAmountByTypeAndTime("Khoản chi", "2019"));
                         SharedPreferences preferences = getSharedPreferences("MoneyLimit", MODE_PRIVATE);
                         int limit = preferences.getInt("MoneyLimit", 0);
                         String month = ddMMYYY.substring(2); // dạng /MM/yyyy
                         int amountPayment  = Integer.parseInt(database.getAmountByTypeAndTime("Khoản chi", month));
                         if(limit != 0 && Math.abs(amountPayment) >= limit) {
-                            String message = "Hạn mức, Bạn đã bội chi. Hãy điều hiển thói quen thu chi nhé";
-                            addNotification(message);
-//                            Toast.makeText(getApplicationContext(), "Tháng này bạn đã tiêu nhiều tiền", Toast.LENGTH_SHORT).show();
+                            String message = "Hạn mức, Bạn đã bội chi. Hãy điều hiển thói quen thu chi nhé!";
+
+                            notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                            deliverNotification(AddCAActivity.this);
                         }
-//
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
@@ -321,21 +322,22 @@ public class AddCAActivity extends AppCompatActivity  {
 
     };
 
-    public void addNotification(String s) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "chanelID")
+    private void deliverNotification(Context context) {
+        Intent contentIntent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle("Personal Finance")
-                .setContentText(s)
-                .setPriority(Notification.PRIORITY_MAX);
+                .setContentText("Hạn mức, Bạn đã bội chi. Hãy điều hiển thói quen thu chi nhé")
+                .setContentIntent(pendingIntent)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setDefaults(NotificationCompat.DEFAULT_ALL);
 
-        Intent intent = new Intent(getApplicationContext(), AddCAActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("chanelID","MyChannel", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-        notificationManager.notify(0, builder.build());
+        // gửi thông baos
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+
     }
+
 
 }

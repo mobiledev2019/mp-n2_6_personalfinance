@@ -127,6 +127,24 @@ public class DatabaseHandler {
         return amount == null ? "0" : amount;
     }
 
+    /**
+     * Hàm này kiểm tra xem người dùng hôm nay đã nhập phiếu thi or phiếu chi nào chưa
+     * @param time thời gian hôm nay : định dạng dd/MM/yyyy
+     * @return true nếu mà người dùng đã thêm, false nếu ngược lại
+     */
+    public boolean checkCAbyDate(String time) {
+        String count = null;
+        String sql = "select count(*) from " + tblReceiptPayment + " where "  + createdDate + " like '%" + time + "'" ;
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()) {
+            count = cursor.getString(0);
+        }
+        if(count.equals("0")) {
+            return false;
+        }
+        return true;
+    }
+
     static class OpenHelper extends SQLiteOpenHelper{
         public OpenHelper(Context context) {
             super(context,DATABASE_NAME,null,1);

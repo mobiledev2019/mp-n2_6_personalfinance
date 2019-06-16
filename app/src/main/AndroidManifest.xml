@@ -26,6 +26,12 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ListCAActtivity"
             android:parentActivityName=".MainActivity"/>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
