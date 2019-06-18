@@ -59,15 +59,15 @@ public class MainActivity extends TabActivity {
         // thiết lập thời gian thông báo
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 2);
-        calendar.set(Calendar.MINUTE, 2);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
         // sẽ lặp lại vào bao lâu - mặc định đây là lặp lại 1 ngày 1 lần vào lúc 21h
         long repeatInterval = AlarmManager.INTERVAL_DAY;
 
         long triggerTime = calendar.getTimeInMillis();
         if(alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, triggerTime, 2*60*1000, pendingIntent);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, triggerTime, repeatInterval, pendingIntent);
         }
 
         createNotificationChannel();

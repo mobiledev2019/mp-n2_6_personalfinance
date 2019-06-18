@@ -326,7 +326,7 @@ public class AddCAActivity extends AppCompatActivity  {
         Intent contentIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.test)
                 .setContentTitle("Personal Finance")
                 .setContentText("Hạn mức, Bạn đã bội chi. Hãy điều hiển thói quen thu chi nhé")
                 .setContentIntent(pendingIntent)

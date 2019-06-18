@@ -42,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent contentIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.test)
                 .setContentTitle("Personal Finance")
                 .setContentText("Hôm nay bạn chưa thêm khoản thu chi nào. Bạn dừng quên nhé!")
                 .setContentIntent(pendingIntent)
