@@ -10,3 +10,4 @@ Các tính năng đang có:
 - Hiện thị lịch sử thu chi tiền sử dụng custom adapter, sắp xếp theo ngày thu chi tiền
 - Thêm cơ chế tự động định dạng lại số tiền khi người dùng nhập vào edit text
 - Thêm chức năng tự động kiểm tra người dùng đã thêm phiếu thu phiếu chi trong ngày chưa, nếu chưa thì gửi thông báo cho người dùng
+Ch
