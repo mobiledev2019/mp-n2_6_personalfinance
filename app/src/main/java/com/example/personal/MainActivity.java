@@ -60,8 +60,8 @@ public class MainActivity extends TabActivity {
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 21);
-//        calendar.set(Calendar.MINUTE, 0);
-//        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         // sẽ lặp lại vào bao lâu - mặc định đây là lặp lại 1 ngày 1 lần vào lúc 21h
         long repeatInterval = AlarmManager.INTERVAL_DAY;
 
